@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, request
+import serial
 
 app = Flask(__name__)
 
