@@ -55,3 +55,6 @@ def send_message():
             # s = ser.read(10)  # read up to ten bytes (timeout)
             # line = ser.readline()  # read a '\n' terminated line
 
+
+app.run(debug=True, host="0.0.0.0", port=5000)
+
