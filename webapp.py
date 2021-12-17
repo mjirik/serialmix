@@ -9,6 +9,7 @@ incomes = [
 ]
 serial_port_0 = "/dev/ttyUSB0"
 serial_port_1 = "/dev/ttyUSB1"
+baudragete = "9600"
 
 
 @app.route('/incomes')
