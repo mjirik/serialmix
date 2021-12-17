@@ -26,6 +26,7 @@
         function updateSlider(slideAmount)
             {
                 alert("error");
+
                 var sliderDiv = document.getElementById("slider1");
                 sliderDiv.innerHTML = slideAmount;
 
@@ -35,7 +36,7 @@
                     //     "id": 0,
                     //     "message"
                     // }
-                const response = await fetch('http://127.0.0.1:5000/send_message');
+                const response = await fetch('http://127.0.0.1:5000/send_message', {method: "POST"});
                     const myJson = await response.json(); //extract JSON from the http response
                     // do something with myJson
                 }

@@ -38,7 +38,8 @@ def set_serial_port():
 
 @app.route('/send_message')
 def send_message():
-    if request.method == "POST":
+        print("send_message recieved")
+    # if request.method == "POST":
         # filename = request.args.get("message")
         # exists = Path(filename).exists()
         # id = request.args.get("id")
