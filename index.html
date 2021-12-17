@@ -30,16 +30,20 @@
                 var sliderDiv = document.getElementById("slider1");
                 sliderDiv.innerHTML = slideAmount;
 
+                console("ahoj")
                 async () => {
 
                     // data = {
                     //     "id": 0,
                     //     "message"
                     // }
+
                     const response = await fetch('http://127.0.0.1:5000/send_message', {method: "POST"});
                     const myJson = await response.json(); //extract JSON from the http response
+                    console("konstanty nastaveny")
                     // do something with myJson
                 }
+                console("za asyncem")
 
             }
         function createMessage(slider_id, )
