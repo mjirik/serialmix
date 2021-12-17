@@ -21,11 +21,26 @@
 
 
 {#    <link rel="stylesheet" href="{% static 'microimprocessing/main.css' %}" type="text/css" />#}
-</head>
+    <script>
+        // Slider
+        function updateSlider(slideAmount)
+            {
+                alert("error");
+                var sliderDiv = document.getElementById("slider1");
+                sliderDiv.innerHTML = slideAmount;
+
+                const userAction = async () => {
+                const response = await fetch('http://127.0.0.1/send_message_0');
+                    const myJson = await response.json(); //extract JSON from the http response
+                    // do something with myJson
+                }
+            }
+            </script>
+    </head>
 <body>
 
 <div class="slidecontainer">
-  <input type="range" min="1" max="100" value="50" class="slider" orient="vertical" id="myRange">
+  <input type="range" min="1" max="100" value="50" class="slider" orient="vertical" id="slider1" onchange="updateSlider(this.value)">
 </div>
 
 

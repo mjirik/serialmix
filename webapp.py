@@ -41,8 +41,15 @@ filename = request.args.get("message")
 def send_message():
     if request.method == "POST":
         filename = request.args.get("message")
-        exists = Path(filename).exists()
-        with serial.Serial('/dev/ttyS1', 19200, timeout=1) as ser:
-            x = ser.read()  # read one byte
-            s = ser.read(10)  # read up to ten bytes (timeout)
-            line = ser.readline()  # read a '\n' terminated line
+        # exists = Path(filename).exists()
+        id = request.args.get("id")
+        message = request.args.get("message")
+
+        port = serial_port_0 if id == 0 else serial_port_1
+
+        with serial.Serial(port, 19200, timeout=1) as ser:
+            ser.write(message.encode("utf-8"))
+            # x = ser.read()  # read one byte
+            # s = ser.read(10)  # read up to ten bytes (timeout)
+            # line = ser.readline()  # read a '\n' terminated line
+
