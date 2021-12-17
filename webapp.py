@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request
 
 app = Flask(__name__)
 
+#
 incomes = [
   { 'description': 'salary', 'amount': 5000 }
 ]
@@ -40,15 +41,18 @@ filename = request.args.get("message")
 @app.route('/send_message')
 def send_message():
     if request.method == "POST":
-        filename = request.args.get("message")
+        # filename = request.args.get("message")
         # exists = Path(filename).exists()
-        id = request.args.get("id")
-        message = request.args.get("message")
+        # id = request.args.get("id")
+        # message = request.args.get("message")
+        id = 0
+        message = "green\n"
 
         port = serial_port_0 if id == 0 else serial_port_1
-
+        # možná globálně
         with serial.Serial(port, 19200, timeout=1) as ser:
             ser.write(message.encode("utf-8"))
+            ser.flush()
             # x = ser.read()  # read one byte
             # s = ser.read(10)  # read up to ten bytes (timeout)
             # line = ser.readline()  # read a '\n' terminated line

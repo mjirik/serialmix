@@ -30,12 +30,22 @@
                 sliderDiv.innerHTML = slideAmount;
 
                 const userAction = async () => {
-                const response = await fetch('http://127.0.0.1/send_message_0');
+
+                    // data = {
+                    //     "id": 0,
+                    //     "message"
+                    // }
+                const response = await fetch('http://127.0.0.1/send_message');
                     const myJson = await response.json(); //extract JSON from the http response
                     // do something with myJson
                 }
             }
-            </script>
+        function createMessage(slider_id, )
+            {
+                message = "SET"
+
+        }
+    </script>
     </head>
 <body>
 
