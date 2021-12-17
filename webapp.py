@@ -35,8 +35,6 @@ def set_serial_port():
             serial_port_1 = port
 
 
-filename = request.args.get("message")
-
 
 @app.route('/send_message')
 def send_message():
