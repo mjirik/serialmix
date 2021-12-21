@@ -3,13 +3,18 @@ import serial
 
 app = Flask(__name__)
 
+from flask_cors import CORS, cross_origin
+app = Flask(__name__)
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 #
 incomes = [
   { 'description': 'salary', 'amount': 5000 }
 ]
 serial_port_0 = "/dev/ttyUSB0"
 serial_port_1 = "/dev/ttyUSB1"
-baudragete = "9600"
+baudrate = 19200
+baudrate = 9600
 
 
 @app.route('/incomes')
@@ -38,25 +43,33 @@ def set_serial_port():
 
 
 
-@app.route('/send_message')
+@app.route('/send_message', methods=['POST'])
+@cross_origin()
 def send_message():
+        debug = True
         print("send_message recieved")
-    # if request.method == "POST":
+        # if request.method == "POST":
         # filename = request.args.get("message")
         # exists = Path(filename).exists()
         # id = request.args.get("id")
         # message = request.args.get("message")
         id = 0
         message = "green\n"
+        print(request.args)
+        print(request.json)
+        data = {
+            'id': id,
+        }
 
-        port = serial_port_0 if id == 0 else serial_port_1
-        # možná globálně
-        with serial.Serial(port, 19200, timeout=1) as ser:
-            ser.write(message.encode("utf-8"))
-            ser.flush()
-            # x = ser.read()  # read one byte
-            # s = ser.read(10)  # read up to ten bytes (timeout)
-            # line = ser.readline()  # read a '\n' terminated line
+        if not debug:
+            port = serial_port_0 if id == 0 else serial_port_1
+            # možná globálně
+            with serial.Serial(port, 19200, timeout=1) as ser:
+                ser.write(message.encode("utf-8"))
+                ser.flush()
+        response = jsonify(data)
+        # response.headers.add('Access-Control-Allow-Origin', '*')
+        return response
 
 
 app.run(debug=True, host="0.0.0.0", port=5000)

@@ -1,0 +1,20 @@
+
+input.my-input-range {
+    -webkit-appearance: slider-vertical;
+}
+
+
+.slidecontainer {
+    display: flex;
+    flex-direction: column;
+    place-items: center;
+}
+
+#slider-pult {
+    display: flex;
+    place-content: center;
+    margin-top: 50px;
+}
+/*input [type="range"] {*/
+/*    -webkit-appearance: slider-vertical;*/
+/*}*/
