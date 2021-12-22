@@ -22,17 +22,46 @@
 
     <link rel="stylesheet" href='main.css' type="text/css" />
     <script type="text/javascript" src="main.js"></script>
+    <script type="text/javascript">
+        console.log("jabascript")
+
+        // $('[data-toggle="buttons"] .btn').on('click', function () {
+        //     // toggle style
+        //     $(this).toggleClass('btn-success btn-danger active');
+        //
+        //     // toggle checkbox
+        //     var $chk = $(this).find('[type=checkbox]');
+        //     $chk.prop('checked',!$chk.prop('checked'));
+        //
+        //     return false;
+        // });
+        //
+        // $('form').on('submit',function(e){
+        //     // watch form values
+        //     $('#formValues').html(($('form').serialize()));
+        //     e.preventDefault();
+        // });
+    </script>
     </head>
 <body>
 
 <div id="slider-pult">
     <div class="slidecontainer">
 <!--        <input type="range" min="1" max="100" value="50" class="slider my-input-range" id="slider1" onchange="updateSlider(this.value)">-->
-        <input type="range" min="1" max="100" value="50" class="slider my-input-range" id="slider1" name="5">
-        <label>Room 1<input type="checkbox"></label>
-        <label class="btn btn-block btn-success active">
-          <input type="checkbox" name="oil" checked autocomplete="off"> Oil
-        </label>
+        <input type="range" min="1" max="100" value="50" class="slider my-input-range m-3" id="slider1" name="5">
+<!--        <label>Room 1<input type="checkbox"></label>-->
+<!--        <div class="container m-px">-->
+            <div data-toggle="buttons">
+                <label class="btn btn-block btn-success active" id="r11">
+    <!--              <input type="button" name="oil" checked autocomplete="off"> -->
+                    R1
+                </label>
+                <label class="btn btn-block btn-success active" id="r12">
+                    <!--              <input type="button" name="oil" checked autocomplete="off"> -->
+                    R2
+                </label>
+<!--            </div>-->
+        </div>
     </div>
 
 
@@ -41,6 +70,8 @@
         <input class="input-range my-input-range" orient="vertical" type="range" step="0.5" value="5" min="1" max="10">
         <span class="range-value"></span>
     </div>
+
+
 </div>
 </body>
 </html>

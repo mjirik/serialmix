@@ -71,23 +71,17 @@ window.onload=()=>{
 
     }
 
-    $('[data-toggle="buttons"] .btn').on('click', function () {
-        // toggle style
-        $(this).toggleClass('btn-success btn-danger active');
-
-        // toggle checkbox
-        var $chk = $(this).find('[type=checkbox]');
-        $chk.prop('checked',!$chk.prop('checked'));
-
-        return false;
-    });
-
-    $('form').on('submit',function(e){
-        // watch form values
-        $('#formValues').html(($('form').serialize()));
+    $('.btn').click(function(e) {
+        // $('.Button').not(this).removeClass('active');
+        $(this).toggleClass('btn-success');
         e.preventDefault();
     });
 
+    $('.Button').click(function(e) {
+        // $('.Button').not(this).removeClass('active');
+        $(this).toggleClass('active');
+        e.preventDefault();
+    });
 }
 // Slider
 
