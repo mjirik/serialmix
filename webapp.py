@@ -1,5 +1,6 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, send_from_directory
 import serial
+from pathlib import Path
 
 app = Flask(__name__)
 
@@ -133,6 +134,15 @@ def send_message(message, port):
     else:
         print(message)
 
+
+@app.route('/')
+def send_index():
+    return send_from_directory(Path(__file__).parent, "index.html")
+
+@app.route('/<path:path>')
+def send_dir(path):
+    print(f"recived path request {path}")
+    return send_from_directory(Path(__file__).parent, path)
 
 
 if __name__ == "__main__":
