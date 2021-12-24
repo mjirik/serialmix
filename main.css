@@ -2,6 +2,7 @@
 input.my-input-range {
     -webkit-appearance: slider-vertical;
     height: 50vh;
+    width: 10vw;
 }
 
 
