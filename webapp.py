@@ -23,7 +23,7 @@ sliders = {
         "value": 0,
         "mute1": True,
         "mute2": True,
-    } for i in range(1,10)
+    } for i in range(1,7)
 }
 connected = False
 
@@ -89,7 +89,7 @@ def rest_set_slider():
         print(request.args)
         print(request.json)
         channel = request.json['channel']
-        sliders[channel] = int(request.json['value'])
+        sliders[channel]["value"] = int(request.json['value'])
         set_slider(channel=channel, value=sliders[channel])
 
         data = {

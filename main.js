@@ -1,9 +1,19 @@
 window.onload=()=>{
     console.log(this)
-    document.getElementById("slider1").addEventListener("change", (e) => {
-        updateSlider(e)
-        console.log(e)
-    })
+    // document.getElementById("slider1").addEventListener("change", (e) => {
+    //     updateSlider(e)
+    //     console.log(e)
+    // })
+    var sliders = document.getElementsByClassName("slider")
+    console.log("sliders")
+    console.log(sliders)
+    for (const slider of sliders) {
+        slider.addEventListener("change", (e) => {
+            updateSlider(e);
+            console.log("slider update hook");
+            console.log(e);
+        });
+    }
 
     function updateSlider(event)
     {
