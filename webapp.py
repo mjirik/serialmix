@@ -28,12 +28,12 @@ sliders = {
 connected = False
 
 
-def set_slider(channel:int, value:int):
+def serial_set_slider(channel:int, value:int):
     device = 1
     block_id = 207
     send_message(f"SET {device} FDRLVL {block_id} {channel} {value}", port=serial_port_0)
 
-def set_mute(channel:int, value:bool, room_id:int):
+def serial_set_mute(channel:int, value:bool, room_id:int):
     device = 2
     block_id = 207 if room_id == 0 else 208
     send_message(f"SET {device} FDRMUTE {block_id} {channel} {int(value)}", port=serial_port_1)
@@ -54,9 +54,9 @@ def init_state():
 
 def send_state():
     for i in range(1, len(sliders) + 1):
-        set_slider(channel=i, value=sliders[i]["value"])
-        set_mute(channel=i, value=sliders[i]["mute1"], room_id=1)
-        set_mute(channel=i, value=sliders[i]["mute2"], room_id=2)
+        serial_set_slider(channel=i, value=sliders[i]["value"])
+        serial_set_mute(channel=i, value=sliders[i]["mute1"], room_id=1)
+        serial_set_mute(channel=i, value=sliders[i]["mute2"], room_id=2)
 
 
 @app.route('/set_serial_device')
@@ -78,19 +78,11 @@ def set_serial_port():
 @app.route('/set_slider', methods=['POST'])
 @cross_origin()
 def rest_set_slider():
-        debug = True
         print("send_message recieved")
-        # if request.method == "POST":
-        # filename = request.args.get("message")
-        # exists = Path(filename).exists()
-        # id = request.args.get("id")
-        # message = request.args.get("message")
-        message = "green\n"
-        print(request.args)
         print(request.json)
         channel = request.json['channel']
         sliders[channel]["value"] = int(request.json['value'])
-        set_slider(channel=channel, value=sliders[channel])
+        serial_set_slider(channel=channel, value=sliders[channel])
 
         data = {
             # 'id': id,
@@ -101,6 +93,29 @@ def rest_set_slider():
         response = jsonify(data)
         # response.headers.add('Access-Control-Allow-Origin', '*')
         return response
+
+@app.route('/set_mute', methods=['POST'])
+@cross_origin()
+def rest_set_mute():
+    print("send_message recieved")
+    print(request.json)
+    channel = request.json['channel']
+
+    sliders[channel]["value"] = bool(request.json['value'])
+    room_id = int(request.json["room_id"])
+    mute_key = "mute" + str(room_id)
+    sliders[channel][mute_key] = request.json["value"]
+    serial_set_mute(channel=channel, value=sliders[channel][mute_key], room_id=room_id)
+
+    data = {
+        # 'id': id,
+        "error": False,
+    }
+
+    # if not debug:
+    response = jsonify(data)
+    # response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
 
 @app.route('/get_state', methods=['POST'])
 @cross_origin()
