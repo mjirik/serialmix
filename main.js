@@ -27,7 +27,7 @@ window.onload=()=>{
         var sliderDiv = document.getElementById("slider" + channel);
         sliderDiv.innerHTML = sliderAmount;
         // fetch("http://127.0.0.1:5000/send_message",
-        fetch("http://localhost:80/set_slider",
+        fetch("http://localhost:5000/set_slider",
             {
                 method: "POST",
                 body: JSON.stringify({channel: channel, value: sliderAmount}),
@@ -51,7 +51,7 @@ window.onload=()=>{
 
     function restore_state(){
         var state = {}
-        fetch("http://localhost:80/get_state",
+        fetch("http://localhost:5000/get_state",
             {
                 method: "POST",
                 // body: JSON.stringify({channel: channel, value: sliderAmount}),
@@ -153,7 +153,7 @@ window.onload=()=>{
         console.log("channel=" + channel);
         console.log("id=" + room_id);
 
-        fetch("http://localhost:80/set_mute",
+        fetch("http://localhost:5000/set_mute",
             {
                 method: "POST",
                 body: JSON.stringify({channel: channel, value: muted, room_id:room_id}),

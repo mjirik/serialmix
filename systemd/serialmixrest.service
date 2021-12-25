@@ -1,0 +1,10 @@
+ [Unit]
+ Description=SerialMix Rest API.
+ After=multi-user.target
+
+ [Service]
+ Type=idle
+ ExecStart=bash -c '/usr/bin/python3 /home/pi/serialmix/rest/rest.py |& tee -p /home/pi/serialmix/serialmixrest.log'
+
+ [Install]
+ WantedBy=multi-user.target
