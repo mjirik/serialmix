@@ -23,11 +23,16 @@ window.onload=()=>{
 
         // alert("error");
 
-        console.log("alkfdlskdf"+channel)
+        console.log("cahnnel"+channel)
         var sliderDiv = document.getElementById("slider" + channel);
         sliderDiv.innerHTML = sliderAmount;
         // fetch("http://127.0.0.1:5000/send_message",
-        fetch("http://localhost:5000/set_slider",
+        var hostname = "localhost"
+        if (window.location.hostname.length > 0) {
+            hostname = window.location.hostname
+        }
+        console.log(typeof window.location.hostname)
+        fetch("http://" + hostname + ":5000/set_slider",
             {
                 method: "POST",
                 body: JSON.stringify({channel: channel, value: sliderAmount}),
@@ -51,7 +56,11 @@ window.onload=()=>{
 
     function restore_state(){
         var state = {}
-        fetch("http://localhost:5000/get_state",
+        var hostname = "localhost"
+        if (window.location.hostname.length > 0) {
+            hostname = window.location.hostname
+        }
+        fetch("http://" + hostname + ":5000/get_state",
             {
                 method: "POST",
                 // body: JSON.stringify({channel: channel, value: sliderAmount}),
@@ -153,7 +162,11 @@ window.onload=()=>{
         console.log("channel=" + channel);
         console.log("id=" + room_id);
 
-        fetch("http://localhost:5000/set_mute",
+        var hostname = "localhost"
+        if (window.location.hostname.length > 0) {
+            hostname = window.location.hostname
+        }
+        fetch("http://" + hostname + ":5000/set_mute",
             {
                 method: "POST",
                 body: JSON.stringify({channel: channel, value: muted, room_id:room_id}),
