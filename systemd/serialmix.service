@@ -4,7 +4,7 @@
 
  [Service]
  Type=idle
- ExecStart=sh -c '/usr/bin/python3 /home/pi/serialmix/webapp.py > /home/pi/serialmix/serialmix.log 2>&1'
+ ExecStart=bash -c '/usr/bin/python3 /home/pi/serialmix/webapp.py |& tee -p /home/pi/serialmix/serialmix.log'
 
  [Install]
  WantedBy=multi-user.target

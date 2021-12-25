@@ -4,7 +4,7 @@ Web application for audio mix control
 # Install on Raspberry Pi 
 
 ```bash
-pip install flask_cors flask serial
+sudo pip3 install flask_cors flask serial
 git clone https://github.com/mjirik/serialmix.git
 sudo cp serialmix/systemd/serialmix.service /lib/systemd/system/
 sudo chmod 644 /lib/systemd/system/serialmix.service
