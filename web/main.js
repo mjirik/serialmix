@@ -104,12 +104,13 @@ window.onload=()=>{
                     console.log("value=" + value)
                     console.log(button.classList)
 
+                    // to swap colors move toggle class to other if-part
                     if (value) {
                         console.log("remove btn-succes")
+                        $(button).toggleClass('btn-success')
                         // button.classList.remove("btn-sucess")
                     } else {
                         console.log("add btn-succes")
-                        $(button).toggleClass('btn-success')
                         // button.classList.add("btn-sucess")
                     }
 
@@ -155,7 +156,8 @@ window.onload=()=>{
         var channel= parseInt(e.target.getAttribute("name"));
         // var muted = $(this).classList.contains("btn-sucess");
         var muted = true;
-        muted = hasClass(this, "btn-success");
+        // to swap color remove !
+        muted = !hasClass(this, "btn-success");
 
         var room_id = parseInt(this.id[1])
         console.log("muted=" + muted);
