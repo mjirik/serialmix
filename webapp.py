@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request, send_from_directory
 import serial
 from pathlib import Path
+import traceback
 
 app = Flask(__name__)
 
@@ -16,6 +17,7 @@ baudrate = 19200
 baudrate = 9600
 
 debug = True
+debug = False
 
 #TODO prepare the structure of sliders - device, block id, ...
 sliders = {
@@ -26,7 +28,9 @@ sliders = {
         "mute2": True,
     } for i in range(1,7)
 }
-connected = False
+
+connection_error = False
+connetcion_error_message = ""
 
 
 def serial_set_slider(channel:int, value:int):
@@ -79,21 +83,19 @@ def set_serial_port():
 @app.route('/set_slider', methods=['POST'])
 @cross_origin()
 def rest_set_slider():
-        print("send_message recieved")
-        print(request.json)
-        channel = request.json['channel']
-        sliders[channel]["value"] = int(request.json['value'])
-        serial_set_slider(channel=channel, value=sliders[channel])
+    print("send_message recieved")
+    print(request.json)
+    channel = request.json['channel']
+    sliders[channel]["value"] = int(request.json['value'])
+    serial_set_slider(channel=channel, value=sliders[channel])
 
-        data = {
-            # 'id': id,
-            "error": False,
-        }
-
-        # if not debug:
-        response = jsonify(data)
-        # response.headers.add('Access-Control-Allow-Origin', '*')
-        return response
+    data = {
+        "error": connection_error,
+        "message": connetcion_error_message,
+    }
+    response = jsonify(data)
+    # response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
 
 @app.route('/set_mute', methods=['POST'])
 @cross_origin()
@@ -110,9 +112,9 @@ def rest_set_mute():
 
     data = {
         # 'id': id,
-        "error": False,
+        "error": connection_error,
+        "message": connetcion_error_message,
     }
-
     # if not debug:
     response = jsonify(data)
     # response.headers.add('Access-Control-Allow-Origin', '*')
@@ -121,19 +123,36 @@ def rest_set_mute():
 @app.route('/get_state', methods=['POST'])
 @cross_origin()
 def get_state():
-    response = jsonify(sliders)
+
+    response = jsonify({
+        "state": sliders,
+        "error": {
+            "error": connection_error,
+            "message": connetcion_error_message
+        }
+    })
     return response
 
-def send_message(message, port):
-    port = serial_port_0 if id == 0 else serial_port_1
+
+def send_message(message:str, port:str):
+    global connetcion_error_message
+    global connection_error
+    # port = serial_port_0 if port == 0 else serial_port_1
     # možná globálně
+
     if not debug:
-        with serial.Serial(port, baudrate, timeout=1) as ser:
-            ser.write(message.encode("utf-8"))
-            ser.flush()
+
+        try:
+            with serial.Serial(port, baudrate, timeout=1) as ser:
+                ser.write(message.encode("utf-8"))
+                ser.flush()
+        except Exception as e:
+            traceback.print_exc()
+            connection_error = True
+            connetcion_error_message = traceback.format_exc()
+
     else:
         print(message)
-
 
 @app.route('/')
 def send_index():

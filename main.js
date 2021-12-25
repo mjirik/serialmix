@@ -35,7 +35,14 @@ window.onload=()=>{
             }
         )
             .then(response => response.json())
-            .then(data => console.log(data));
+            .then(error_data => {
+                checkError(error_data);
+                // console.log(error_data);
+                // if (error_data.error) {
+                //     showErrorMessage()
+                //     console.error(data.message)
+                // }
+            });
         console.log("ahoj")
         console.log(sliderAmount)
         console.log("za asyncem")
@@ -53,10 +60,14 @@ window.onload=()=>{
         )
         .then(response => response.json())
         .then(
-            data => {
-                console.log("data")
+            response_data => {
+                var data = response_data.state
+                var error_data = response_data.error
+                checkError(error_data);
+                console.log("Data from the REST API")
                 console.log(data)
 
+                console.log("Restoring the faders...")
                 var sliders = document.getElementsByClassName("slider");
                 for (const slider of sliders) {
                     // console.log(slider);
@@ -66,7 +77,7 @@ window.onload=()=>{
                     // console.log()
                 }
 
-                console.log("Restoring buttons")
+                console.log("Restoring the buttons...")
                 var buttons = document.getElementsByClassName("btn");
                 for (const button of buttons) {
                     // console.log(slider);
@@ -103,6 +114,25 @@ window.onload=()=>{
 
         console.log("state restored")
     }
+    function checkError(error_data){
+        if (error_data.error) {
+            showErrorMessage();
+            console.error(error_data.message);
+        }
+    }
+    function showErrorMessage(){
+        var theDiv = document.getElementById("error-container");
+        if (hasClass(theDiv, "alert")) {
+
+        } else {
+            $(theDiv).toggleClass('alert');
+            $(theDiv).toggleClass('alert-danger');
+        }
+        console.log(theDiv)
+        content = "Serial connection between the mixing console and the webserver lost. Check the hardware and refresh the page.<br>"
+        // var content = document.createTextNode("malsdkfjal");
+        theDiv.innerHTML += content;
+    }
 
     function hasClass(element, className) {
         return (' ' + element.className + ' ').indexOf(' ' + className+ ' ') > -1;
@@ -131,7 +161,9 @@ window.onload=()=>{
             }
         )
             .then(response => response.json())
-            .then(data => console.log(data));
+            .then(error_data => {
+                checkError(error_data);
+            });
     });
 
     $('.Button').click(function(e) {
