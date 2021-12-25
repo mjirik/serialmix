@@ -1,10 +1,25 @@
 # serialmix
-Web application for audio mix control. There are two services.
 
-* Rest API on port 5000
+Web application for audio mix control. 
+
+![This is an image](webapp.png)
+
+There are two services:
+
+* Rest API on port 5000 
 * Web app on port 80
 
-# Install on Raspberry Pi 
+## Rest API
+
+Is stored in `rest/rest.py`. All the serial communication and setup is done here.
+
+## The web service
+
+The web service
+
+# Install on Raspberry Pi 4
+
+
 
 ```bash
 sudo pip3 install flask_cors flask serial
