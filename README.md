@@ -6,7 +6,7 @@ Web application for audio mix control
 ```bash
 pip install flask_cors flask serial
 git clone https://github.com/mjirik/serialmix.git
-sudo serialmix/systemd/serialmix.service /lib/systemd/system/
+sudo cp serialmix/systemd/serialmix.service /lib/systemd/system/
 sudo chmod 644 /lib/systemd/system/serialmix.service
 
 sudo systemctl daemon-reload
