@@ -5,6 +5,8 @@ Web application for audio mix control
 
 ```bash
 pip install flask_cors flask serial
+git clone https://github.com/mjirik/serialmix.git
+sudo  d serialmix/systemd/serialmix.service /lib/systemd/system/
 ```
 
 Serial port message calculator
