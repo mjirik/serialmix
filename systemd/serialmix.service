@@ -1,0 +1,10 @@
+ [Unit]
+ Description=SerialMix Web server and Rest API.
+ After=multi-user.target
+
+ [Service]
+ Type=idle
+ ExecStart=/usr/bin/python /home/pi/serialmix/ webapp.py
+
+ [Install]
+ WantedBy=multi-user.target
