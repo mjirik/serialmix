@@ -1,16 +1,22 @@
 # serialmix
-Web application for audio mix control
+Web application for audio mix control. There are two services.
+
+* Rest API on port 5000
+* Web app on port 80
 
 # Install on Raspberry Pi 
 
 ```bash
 sudo pip3 install flask_cors flask serial
 git clone https://github.com/mjirik/serialmix.git
-sudo cp /home/pi/serialmix/systemd/serialmix.service /lib/systemd/system/
-sudo chmod 644 /lib/systemd/system/serialmix.service
+sudo cp /home/pi/serialmix/systemd/serialmixweb.service /lib/systemd/system/
+sudo chmod 644 /lib/systemd/system/serialmixweb.service
+sudo cp /home/pi/serialmix/systemd/serialmixrest.service /lib/systemd/system/
+sudo chmod 644 /lib/systemd/system/serialmixrest.service
 
 sudo systemctl daemon-reload
-sudo systemctl enable serialmix.service
+sudo systemctl enable serialmixweb.service
+sudo systemctl enable serialmixrest.service
 ```
 
 Check the ip of the device and restarat
