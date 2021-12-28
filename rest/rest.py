@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request, send_from_directory
 import serial
 from pathlib import Path
 import traceback
+import time
 
 app = Flask(__name__)
 
@@ -15,6 +16,8 @@ serial_port_0 = "/dev/ttyUSB0"
 serial_port_1 = "/dev/ttyUSB1"
 baudrate = 19200
 baudrate = 9600
+
+start_sleep_time_seconds = 0
 
 debug = True
 debug = False
@@ -35,12 +38,12 @@ connetcion_error_message = ""
 
 def serial_set_slider(channel:int, value:int):
     device = 1
-    block_id = 207
+    block_id = 259
     send_message(f"SET {device} FDRLVL {block_id} {channel} {value}", port=serial_port_0)
 
 def serial_set_mute(channel:int, value:bool, room_id:int):
     device = 2
-    block_id = 207 if room_id == 0 else 208
+    block_id = 276 if room_id == 0 else 275
     send_message(f"SET {device} FDRMUTE {block_id} {channel} {int(value)}", port=serial_port_1)
 
 
@@ -156,6 +159,7 @@ def send_message(message:str, port:str):
 
 
 if __name__ == "__main__":
+    time.sleep(start_sleep_time_seconds)
     init_state()
     app.run(debug=True, host="0.0.0.0", port=5000)
 
