@@ -168,6 +168,7 @@ def send_message(message:str, port:str):
 
 
 if __name__ == "__main__":
+    print("Serial Mix REST Api starting...")
     time.sleep(start_sleep_time_seconds)
     init_state()
     app.run(debug=True, host="0.0.0.0", port=5000)
