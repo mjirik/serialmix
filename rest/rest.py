@@ -3,6 +3,7 @@ import serial
 from pathlib import Path
 import traceback
 import time
+import sys
 
 app = Flask(__name__)
 
@@ -64,6 +65,9 @@ def init_state():
     print(send_message("GET 0 IPADDR\n", port=serial_port_1))
     send_state()
 
+def printt(msg):
+    print(msg, file=sys.stderr)
+
 def send_state():
     for i in range(1, len(sliders) + 1):
         serial_set_slider(channel=i, value=sliders[i]["value"])
@@ -90,8 +94,8 @@ def set_serial_port():
 @app.route('/set_slider', methods=['POST'])
 @cross_origin()
 def rest_set_slider():
-    print("send_message recieved")
-    print(request.json)
+    printt("send_message recieved")
+    printt(request.json)
     channel = request.json['channel']
     sliders[channel]["value"] = int(request.json['value'])
     serial_set_slider(channel=channel, value=sliders[channel])
@@ -107,8 +111,8 @@ def rest_set_slider():
 @app.route('/set_mute', methods=['POST'])
 @cross_origin()
 def rest_set_mute():
-    print("send_message recieved")
-    print(request.json)
+    printt("send_message recieved")
+    printt(request.json)
     channel = request.json['channel']
 
     sliders[channel]["value"] = bool(request.json['value'])
@@ -152,11 +156,11 @@ def send_message(message:str, port:str):
 
         try:
             with serial.Serial(port, baudrate, timeout=1, parity=parity, stopbits=stopbits) as ser:
-                print(f"sended_message={message.encode('ascii')}")
+                printt(f"sended_message={message.encode('ascii')}")
                 ser.write(message.encode("ascii"))
                 ser.flush()
                 recived_message = ser.read(100)
-                print(f"recived_message={recived_message}")
+                printt(f"recived_message={recived_message}")
         except Exception as e:
             traceback.print_exc()
             connection_error = True
