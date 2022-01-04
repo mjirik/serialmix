@@ -62,7 +62,7 @@ def init_state():
 
     print("Connection init")
     print(send_message("GET 0 IPADDR\n", port=serial_port_0, wait_for_response=True))
-    print(send_message("GET 0 IPADDR\n", port=serial_port_1, wait_for_response=True))
+    # print(send_message("GET 0 IPADDR\n", port=serial_port_1, wait_for_response=True))
     send_state()
 
 def printt(msg):
