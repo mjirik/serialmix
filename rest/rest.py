@@ -61,8 +61,8 @@ def init_state():
     #     sliders[i]["mute2"] = True
 
     print("Connection init")
-    print(send_message("GET 0 IPADDR\n", port=serial_port_0))
-    print(send_message("GET 0 IPADDR\n", port=serial_port_1))
+    print(send_message("GET 0 IPADDR\n", port=serial_port_0, wait_for_response=True))
+    print(send_message("GET 0 IPADDR\n", port=serial_port_1, wait_for_response=True))
     send_state()
 
 def printt(msg):
@@ -145,7 +145,7 @@ def get_state():
     return response
 
 
-def send_message(message:str, port:str):
+def send_message(message:str, port:str, wait_for_response=False):
     global connetcion_error_message
     global connection_error
     # port = serial_port_0 if port == 0 else serial_port_1
@@ -159,8 +159,9 @@ def send_message(message:str, port:str):
                 printt(f"port={port} sended_message={message.encode('ascii')}")
                 ser.write(message.encode("ascii"))
                 ser.flush()
-                recived_message = ser.read(100)
-                printt(f"port={port} recived_message={recived_message}")
+                if wait_for_response:
+                    recived_message = ser.read(100)
+                    printt(f"port={port} recived_message={recived_message}")
         except Exception as e:
             traceback.print_exc()
             connection_error = True
