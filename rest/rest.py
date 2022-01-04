@@ -164,7 +164,7 @@ def send_message(message:str, port:str):
         except Exception as e:
             traceback.print_exc()
             connection_error = True
-            connetcion_error_message = traceback.format_exc()
+            connetcion_error_message = traceback.format_exc() + f"\n\nport{port}"
 
     else:
         print(message)
