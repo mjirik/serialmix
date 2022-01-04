@@ -94,11 +94,11 @@ def set_serial_port():
 @app.route('/set_slider', methods=['POST'])
 @cross_origin()
 def rest_set_slider():
-    printt("send_message recieved")
-    printt(request.json)
+    printt(f"send_message recieved json={request.json}")
+    # printt(request.json)
     channel = request.json['channel']
     sliders[channel]["value"] = int(request.json['value'])
-    serial_set_slider(channel=channel, value=sliders[channel])
+    serial_set_slider(channel=channel, value=sliders[channel]['value'])
 
     data = {
         "error": connection_error,
