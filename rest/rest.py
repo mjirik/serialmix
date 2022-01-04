@@ -14,8 +14,9 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 
 serial_port_0 = "/dev/ttyUSB0"
 serial_port_1 = "/dev/ttyUSB1"
-baudrate = 19200
-baudrate = 9600
+baudrate = 38400
+parity="N"
+stopbits = 1
 
 start_sleep_time_seconds = 0
 
@@ -146,8 +147,8 @@ def send_message(message:str, port:str):
     if not debug:
 
         try:
-            with serial.Serial(port, baudrate, timeout=1) as ser:
-                ser.write(message.encode("utf-8"))
+            with serial.Serial(port, baudrate, timeout=1, parity=parity, stopbits=stopbits) as ser:
+                ser.write(message.encode("ascii"))
                 ser.flush()
         except Exception as e:
             traceback.print_exc()
