@@ -40,12 +40,12 @@ connetcion_error_message = ""
 def serial_set_slider(channel:int, value:int):
     device = 1
     block_id = 259
-    send_message(f"SET {device} FDRLVL {block_id} {channel} {value}", port=serial_port_0)
+    send_message(f"SET {device} FDRLVL {block_id} {channel} {value}\n", port=serial_port_0)
 
 def serial_set_mute(channel:int, value:bool, room_id:int):
     device = 2
     block_id = 276 if room_id == 0 else 275
-    send_message(f"SET {device} FDRMUTE {block_id} {channel} {int(value)}", port=serial_port_1)
+    send_message(f"SET {device} FDRMUTE {block_id} {channel} {int(value)}\n", port=serial_port_1)
 
 
 def init_state():
@@ -59,6 +59,9 @@ def init_state():
     #     sliders[i]["mute1"] = True
     #     sliders[i]["mute2"] = True
 
+    print("Connection init")
+    print(send_message("GET 0 IPADDR\n", port=serial_port_0))
+    print(send_message("GET 0 IPADDR\n", port=serial_port_1))
     send_state()
 
 def send_state():
@@ -143,6 +146,7 @@ def send_message(message:str, port:str):
     global connection_error
     # port = serial_port_0 if port == 0 else serial_port_1
     # možná globálně
+    recived_message = ''
 
     if not debug:
 
@@ -150,6 +154,8 @@ def send_message(message:str, port:str):
             with serial.Serial(port, baudrate, timeout=1, parity=parity, stopbits=stopbits) as ser:
                 ser.write(message.encode("ascii"))
                 ser.flush()
+                recived_message = ser.read(100)
+                # print(f"recived_message={recived_message}")
         except Exception as e:
             traceback.print_exc()
             connection_error = True
@@ -157,6 +163,8 @@ def send_message(message:str, port:str):
 
     else:
         print(message)
+
+    return recived_message
 
 
 if __name__ == "__main__":
