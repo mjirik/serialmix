@@ -45,7 +45,7 @@ def serial_set_slider(channel:int, value:int):
 
 def serial_set_mute(channel:int, value:bool, room_id:int):
     device = 2
-    block_id = 276 if room_id == 0 else 275
+    block_id = 276 if room_id == 1 else 275
     send_message(f"SET {device} MBMUTE {block_id} {channel} {int(value)}\n", port=serial_port_0)
 
 
