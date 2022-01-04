@@ -152,10 +152,11 @@ def send_message(message:str, port:str):
 
         try:
             with serial.Serial(port, baudrate, timeout=1, parity=parity, stopbits=stopbits) as ser:
+                print(f"sended_message={message.encode('ascii')}")
                 ser.write(message.encode("ascii"))
                 ser.flush()
                 recived_message = ser.read(100)
-                # print(f"recived_message={recived_message}")
+                print(f"recived_message={recived_message}")
         except Exception as e:
             traceback.print_exc()
             connection_error = True
