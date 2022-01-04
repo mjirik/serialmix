@@ -25,13 +25,16 @@ debug = True
 debug = False
 
 #TODO prepare the structure of sliders - device, block id, ...
+# Zde se nastavuje počet faderů
+number_of_sliders = 6
+
 sliders = {
     i:{
         "channel": i,
         "value": 0,
         "mute1": True,
         "mute2": True,
-    } for i in range(1,7)
+    } for i in range(1, number_of_sliders + 1)
 }
 
 connection_error = False
