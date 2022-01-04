@@ -34,7 +34,7 @@ sudo systemctl enable serialmixweb.service
 sudo systemctl enable serialmixrest.service
 ```
 
-Check the ip of the device and restarat
+Check the ip of the device and restart
 ```bash
 ifconfig
 sudo reboot
@@ -60,4 +60,19 @@ You can download log using web interface
 ```bash
 <IP Adress>/serialmixrest.log
 <IP Adress>/serialmixweb.log
+```
+
+
+##Update from github
+
+```bash
+cd ~/serialmix
+git pull
+```
+
+## restart web service and rest service
+
+```bash
+cd ~/serialmix
+bash restart.sh
 ```
