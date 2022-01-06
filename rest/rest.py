@@ -61,13 +61,13 @@ def serial_projector(id:str):
     #TODO nastavit zprávy pro seriovou linku v projektoru
     if id == "p1":
         # device = 1
-        send_message(f"PROJECTOR POWER ON\n", port=serial_port_1)
+        send_message(f"PROJECTOR POWER ON\n", port=serial_port_0)
     elif id == "p2":
-        send_message(f"PROJECTOR POWER OFF\n", port=serial_port_1)
+        send_message(f"PROJECTOR POWER OFF\n", port=serial_port_0)
     elif id == "p3":
-        send_message(f"PROJECTOR SOURCE HDMI\n", port=serial_port_1)
+        send_message(f"PROJECTOR SOURCE HDMI\n", port=serial_port_0)
     elif id == "p4":
-        send_message(f"PROJECTOR SOURCE VGA\n", port=serial_port_1)
+        send_message(f"PROJECTOR SOURCE VGA\n", port=serial_port_0)
 
 def init_state():
     """
