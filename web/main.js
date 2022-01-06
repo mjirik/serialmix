@@ -18,12 +18,12 @@ window.onload=()=>{
     function updateSlider(event)
     {
         var sliderAmount = event.target.value
-        console.log(parseInt(event.target.getAttribute("name")))
+        // console.log(parseInt(event.target.getAttribute("name")))
         var channel= parseInt(event.target.getAttribute("name"))
 
         // alert("error");
 
-        console.log("cahnnel"+channel)
+        console.log("update fader channel="+channel)
         var sliderDiv = document.getElementById("slider" + channel);
         sliderDiv.innerHTML = sliderAmount;
         // fetch("http://127.0.0.1:5000/send_message",
@@ -48,9 +48,7 @@ window.onload=()=>{
                 //     console.error(data.message)
                 // }
             });
-        console.log("ahoj")
         console.log(sliderAmount)
-        console.log("za asyncem")
 
     }
 
@@ -87,13 +85,12 @@ window.onload=()=>{
                 }
 
                 console.log("Restoring the buttons...")
-                var buttons = document.getElementsByClassName("btn");
+                var buttons = document.getElementsByClassName("button-slider");
                 for (const button of buttons) {
                     // console.log(slider);
                     var channel = parseInt(button.getAttribute("name"));
 
-                    console.log(channel);
-                    console.log(button.id)
+                    console.log("channel=" + channel + " id=" + button.id);
                     var room_id = parseInt(button.id[1])
                     var value = true
                     if (room_id==1){
@@ -102,20 +99,15 @@ window.onload=()=>{
                         value = data[channel].mute2
                     }
                     console.log("value=" + value)
-                    console.log(button.classList)
+                    // console.log(button.classList)
 
                     // to swap colors move toggle class to other if-part
                     if (value) {
                         console.log("remove btn-succes")
                         $(button).toggleClass('btn-success')
-                        // button.classList.remove("btn-sucess")
                     } else {
                         console.log("add btn-succes")
-                        // button.classList.add("btn-sucess")
                     }
-
-                    // slider.value = data[channel].value
-                    // console.log()
                 }
             }
         );
@@ -138,7 +130,7 @@ window.onload=()=>{
             $(theDiv).toggleClass('alert');
             $(theDiv).toggleClass('alert-danger');
         }
-        console.log(theDiv)
+        // console.log(theDiv)
         content = "Serial connection between the mixing console and the webserver lost. Check the hardware and refresh the page.<br>"
         // var content = document.createTextNode("malsdkfjal");
         theDiv.innerHTML += content;
@@ -148,11 +140,11 @@ window.onload=()=>{
         return (' ' + element.className + ' ').indexOf(' ' + className+ ' ') > -1;
     }
 
-    $('.btn').click(function(e) {
+    $('.button-slider').click(function(e) {
         // $('.Button').not(this).removeClass('active');
         $(this).toggleClass('btn-success');
         e.preventDefault();
-        console.log(this);
+        // console.log(this);
         var channel= parseInt(e.target.getAttribute("name"));
         // var muted = $(this).classList.contains("btn-sucess");
         var muted = true;
@@ -160,9 +152,7 @@ window.onload=()=>{
         muted = !hasClass(this, "btn-success");
 
         var room_id = parseInt(this.id[1])
-        console.log("muted=" + muted);
-        console.log("channel=" + channel);
-        console.log("id=" + room_id);
+        console.log("muted=" + muted + " channel=" + channel + " room=" + room_id);
 
         var hostname = "localhost"
         if (window.location.hostname.length > 0) {
@@ -172,6 +162,39 @@ window.onload=()=>{
             {
                 method: "POST",
                 body: JSON.stringify({channel: channel, value: muted, room_id:room_id}),
+                headers: {"content-type": "application/json"}
+            }
+        )
+            .then(response => response.json())
+            .then(error_data => {
+                checkError(error_data);
+            });
+    });
+
+    $('.button-projector').click(function(e) {
+        // $('.Button').not(this).removeClass('active');
+        // $(this).toggleClass('btn-success');
+        e.preventDefault();
+        // console.log(this);
+        // var channel= parseInt(e.target.getAttribute("name"));
+        // var muted = $(this).classList.contains("btn-sucess");
+        // var muted = true;
+        // to swap color remove !
+        // muted = !hasClass(this, "btn-success");
+
+        // var projector_button_id = parseInt(this.id[1])
+        // console.log("muted=" + muted);
+        // console.log("channel=" + channel);
+        // console.log("id=" + projector_button_id);
+
+        var hostname = "localhost"
+        if (window.location.hostname.length > 0) {
+            hostname = window.location.hostname
+        }
+        fetch("http://" + hostname + ":5000/projector",
+            {
+                method: "POST",
+                body: JSON.stringify({id:this.id}),
                 headers: {"content-type": "application/json"}
             }
         )

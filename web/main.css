@@ -15,11 +15,24 @@ input.my-input-range {
 #slider-pult {
     display: flex;
     place-content: center;
-    margin-top: 50px;
+    /*margin-top: 0px;*/
+    margin-top: 5vh;
+}
+#button-pult {
+    display: flex;
+    place-content: center;
+    /*margin-top: 0px;*/
+    /*height: 20vh;*/
+}
+.button-projector {
+    width: 15vw;
 }
 
+.button-slider {
 
-.Button:active, .active {
+}
+
+.active {
     background-color:red;
     color: white;
 }
