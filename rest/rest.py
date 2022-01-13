@@ -5,6 +5,7 @@ import traceback
 import time
 import sys
 import argparse
+import inspect
 
 app = Flask(__name__)
 
@@ -81,6 +82,7 @@ def init_state():
     #     sliders[i]["mute2"] = True
 
     print("Connection init")
+    print(inspect.stack())
     print(send_message("GET 0 IPADDR\n", port=serial_port_0, wait_for_response=True))
     # print(send_message("GET 0 IPADDR\n", port=serial_port_1, wait_for_response=True))
     send_state()
@@ -221,5 +223,11 @@ if __name__ == "__main__":
         debug_no_serial = True
     time.sleep(start_sleep_time_seconds)
     init_state()
-    app.run(debug=True, host="0.0.0.0", port=5000)
+    app.run(
+        debug=False,
+        # debug=True,
+        # use_reloader=False,
+        host="0.0.0.0",
+        port=5000
+    )
 

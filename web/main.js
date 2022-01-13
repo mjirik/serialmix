@@ -24,6 +24,11 @@ window.onload=()=>{
         // alert("error");
 
         console.log("update fader channel="+channel)
+        var theValue = document.getElementById("slider-value" + channel);
+        theValue.textContent=sliderAmount;
+
+
+
         var sliderDiv = document.getElementById("slider" + channel);
         sliderDiv.innerHTML = sliderAmount;
         // fetch("http://127.0.0.1:5000/send_message",
@@ -31,11 +36,15 @@ window.onload=()=>{
         if (window.location.hostname.length > 0) {
             hostname = window.location.hostname
         }
-        console.log(typeof window.location.hostname)
-        fetch("http://" + hostname + ":5000/set_slider",
+        // console.log(typeof window.location.hostname)
+        var url = "http://" + hostname + ":5000/set_slider"
+        var body = JSON.stringify({channel: channel, value: sliderAmount})
+        console.log(url)
+        console.log(body)
+        fetch(url,
             {
                 method: "POST",
-                body: JSON.stringify({channel: channel, value: sliderAmount}),
+                body: body,
                 headers: {"content-type": "application/json"}
             }
         )
@@ -48,7 +57,7 @@ window.onload=()=>{
                 //     console.error(data.message)
                 // }
             });
-        console.log(sliderAmount)
+        // console.log(sliderAmount)
 
     }
 
@@ -82,6 +91,8 @@ window.onload=()=>{
                     // console.log(channel);
                     slider.value = data[channel].value
                     // console.log()
+                    var theValue = document.getElementById("slider-value" + channel);
+                    theValue.textContent=data[channel].value;
                 }
 
                 console.log("Restoring the buttons...")

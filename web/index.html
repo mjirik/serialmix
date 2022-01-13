@@ -1,44 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Shonsee Mixer Controller</title>
-    <link rel="shortcut icon" type="image/png" href="favicon.ico"/>
+    <head>
+        <meta charset="UTF-8">
+        <title>Shonsee Mixer Controller</title>
+        <link rel="shortcut icon" type="image/png" href="favicon.ico"/>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-<!--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">-->
-    <link rel="stylesheet" href="bootstrap.min.css">
-
-
-    <!-- ajax-->
-<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
-    <script src="jquery.min.js"></script>
-
-    <!--    icons-->
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <!-- <script src='https://kit.fontawesome.com/a076d05399.js'></script> -->
-<!--{#    <script type="text/javascript"> (function() { var css = document.createElement('link'); css.href = 'https://use.fontawesome.com/releases/v5.1.0/css/all.css'; css.rel = 'stylesheet'; css.type = 'text/css'; document.getElementsByTagName('head')[0].appendChild(css); })(); </script>#}-->
-
-    <meta http-equiv="refresh" content="60">
+        <!-- Bootstrap CSS -->
+        <!--    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">-->
+        <link rel="stylesheet" href="bootstrap.min.css">
 
 
-    <link rel="stylesheet" href='main.css' type="text/css" />
-    <script type="text/javascript" src="main.js"></script>
-<!--    <script type="text/javascript">-->
-<!--        console.log("javascript")-->
-<!--    </script>-->
+        <!-- ajax-->
+        <!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
+        <script src="jquery.min.js"></script>
+
+        <!--    icons-->
+        <meta name='viewport' content='width=device-width, initial-scale=1'>
+        <!-- <script src='https://kit.fontawesome.com/a076d05399.js'></script> -->
+        <!--{#    <script type="text/javascript"> (function() { var css = document.createElement('link'); css.href = 'https://use.fontawesome.com/releases/v5.1.0/css/all.css'; css.rel = 'stylesheet'; css.type = 'text/css'; document.getElementsByTagName('head')[0].appendChild(css); })(); </script>#}-->
+
+        <meta http-equiv="refresh" content="60">
+
+
+        <link rel="stylesheet" href='main.css' type="text/css" />
+        <script type="text/javascript" src="main.js"></script>
+        <!--    <script type="text/javascript">-->
+        <!--        console.log("javascript")-->
+        <!--    </script>-->
     </head>
 <body>
-
 <div class="container mt-1 " id="error-container">
 </div>
 <div id="slider-pult">
     <div class="slidecontainer">
         <label>1</label>
-        <input type="range" min="-14" max="7" value="0" class="slider my-input-range m-3" id="slider1" name="1">
-        <div data-toggle="buttons">
+        <div id="slider-value1">0</div>
+ <input type="range" min="-14" max="7" value="0" class="slider" id="slider1" name="1"  oninput="updateValue(this.value)">
+           <div data-toggle="buttons">
             <label class="btn btn-block btn-success button-slider active" id="r101" name="1"> R1 </label>
             <label class="btn btn-block btn-success button-slider active" id="r201" name="1"> R2 </label>
         </div>
@@ -47,7 +47,8 @@
 
     <div class="slidecontainer">
         <label>2</label>
-        <input type="range" min="-14" max="7" value="0" class="slider my-input-range m-3" id="slider2" name="2">
+<div id="slider-value2">0</div>
+        <input type="range" min="-14" max="7" value="0" class="slider" id="slider2" name="2">
         <div data-toggle="buttons">
             <label class="btn btn-block btn-success button-slider active" id="r102" name="2"> R1 </label>
             <label class="btn btn-block btn-success button-slider active" id="r202" name="2"> R2 </label>
@@ -56,7 +57,8 @@
 
     <div class="slidecontainer">
         <label>3</label>
-        <input type="range" min="-14" max="7" value="0" class="slider my-input-range m-3" id="slider3" name="3">
+        <div id="slider-value3">0</div>
+        <input type="range" min="-14" max="7" value="0" class="slider" id="slider3" name="3">
         <div data-toggle="buttons">
             <label class="btn btn-block btn-success button-slider active" id="r103" name="3"> R1 </label>
             <label class="btn btn-block btn-success button-slider active" id="r203" name="3"> R2 </label>
@@ -65,7 +67,8 @@
 
     <div class="slidecontainer">
         <label>4</label>
-        <input type="range" min="-14" max="7" value="0" class="slider my-input-range m-3" id="slider4" name="4">
+        <div id="slider-value4">0</div>
+        <input type="range" min="-14" max="7" value="0" class="slider" id="slider4" name="4">
         <div data-toggle="buttons">
             <label class="btn btn-block btn-success button-slider active" id="r104" name="4"> R1 </label>
             <label class="btn btn-block btn-success button-slider active" id="r204" name="4"> R2 </label>
@@ -74,7 +77,8 @@
 
     <div class="slidecontainer">
         <label>5</label>
-        <input type="range" min="-14" max="7" value="0" class="slider my-input-range m-3" id="slider5" name="5">
+        <div id="slider-value5">0</div>
+        <input type="range" min="-14" max="7" value="0" class="slider" id="slider5" name="5">
         <div data-toggle="buttons">
             <label class="btn btn-block btn-success button-slider active" id="r105" name="5"> R1 </label>
             <label class="btn btn-block btn-success button-slider active" id="r205" name="5"> R2 </label>
@@ -83,8 +87,9 @@
 
     <div class="slidecontainer">
         <label>6</label>
-        <input type="range" min="-14" max="7" value="0" class="slider my-input-range m-3" id="slider6" name="6">
-        <div data-toggle="buttons">
+        <div id="slider-value6">0</div>
+        <input type="range" min="-14" max="7" value="0" class="slider" id="slider6" name="6">
+<div data-toggle="buttons">
             <label class="btn btn-block btn-success button-slider active" id="r106" name="6"> R1 </label>
             <label class="btn btn-block btn-success button-slider active" id="r206" name="6"> R2 </label>
         </div>
@@ -95,19 +100,11 @@
 
 <!--Buttons-->
 <!--<div class="container">-->
-    <div
-            id="button-pult"
-    >
+    <div id="button-pult" >
         <label class="btn btn-primary button-projector m-3" id="p1"> Power On </label>
         <label class="btn btn-primary button-projector m-3" id="p2"> Power Off </label>
         <label class="btn btn-primary button-projector m-3" id="p3"> HDMI </label>
         <label class="btn btn-primary button-projector m-3" id="p4"> VGA </label>
-<!--        <input class="btn btn-block btn-primary" type="button" value="Input">-->
     </div>
-<!--    <div class="container">-->
-<!--        <label class="btn btn-block btn-success button-slider active" id="r101" name="1"> R1 </label>-->
-<!--        <input class="btn btn-block btn-primary" type="button" value="Input">-->
-<!--    </div>-->
-<!--</div>-->
 </body>
 </html>
