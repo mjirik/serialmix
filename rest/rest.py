@@ -137,7 +137,7 @@ def rest_set_mute():
     printt(request.json)
     channel = request.json['channel']
 
-    sliders[channel]["value"] = bool(request.json['value'])
+    # sliders[channel]["value"] = bool(request.json['value'])
     room_id = int(request.json["room_id"])
     mute_key = "mute" + str(room_id)
     sliders[channel][mute_key] = request.json["value"]
